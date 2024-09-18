@@ -1,11 +1,14 @@
 package com.example.btsbackendtest.checklist;
 
+import com.example.btsbackendtest.ChecklistItem.ChecklistItem;
 import com.example.btsbackendtest.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "checklist")
@@ -27,6 +30,9 @@ public class Checklist {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
+
+    @OneToMany
+    private List<ChecklistItem> items;
 
     public Checklist(String name, User user) {
         this.name = name;

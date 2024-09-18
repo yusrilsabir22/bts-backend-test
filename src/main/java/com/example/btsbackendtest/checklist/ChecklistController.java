@@ -1,5 +1,7 @@
 package com.example.btsbackendtest.checklist;
 
+import com.example.btsbackendtest.ChecklistItem.ChecklistItemService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class ChecklistController {
 
     private final ChecklistService checklistService;
+    private final ChecklistItemService checklistItemService;
 
     @GetMapping()
     @PreAuthorize("hasAnyAuthority('user:read')")
@@ -25,9 +28,14 @@ public class ChecklistController {
         return ResponseEntity.ok(checklistService.create(requestDto.getName()));
     }
 
-    @DeleteMapping()
+    @DeleteMapping(path = "/{id}")
     @PreAuthorize("hasAnyAuthority('user:remove')")
-    public ResponseEntity<?> remove(@RequestParam("id") String id) {
+    public ResponseEntity<?> remove(@PathVariable("id") String id) {
         return ResponseEntity.ok(checklistService.remove(id));
+    }
+
+    @GetMapping(path = "/{id}/item")
+    public ResponseEntity<?> findAllItem(@PathVariable("id") String id) {
+        return ResponseEntity.ok(checklistItemService.findChecklistItem(id));
     }
 }
