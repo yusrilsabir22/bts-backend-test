@@ -18,5 +18,7 @@ public interface ChecklistRepository extends JpaRepository<Checklist, String> {
     List<Checklist> findChecklistsByUser(User user);
 
     @Query("DELETE FROM Checklist c WHERE c.id = :id AND c.user = :user")
-    List<Checklist> removeChecklistById(String id, User user);
+    void removeChecklistById(String id, User user);
+
+    List<Checklist> findByUserId(String userId);
 }

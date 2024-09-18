@@ -36,7 +36,7 @@ public class AuthService {
         AuthResponse response = AuthResponse.builder()
                 .accessToken(token)
                 .message("Logged in successfully")
-                .statusCode(200)
+                .status(200)
                 .build();
 
         return response;

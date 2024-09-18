@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class AuthResponse<T> {
-    private int statusCode;
+    private int status;
     private String message;
     private String accessToken;
 

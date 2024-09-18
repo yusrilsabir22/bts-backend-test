@@ -23,6 +23,9 @@ public class ChecklistItem {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "status")
+    private boolean status = true;
+
     @JoinColumn(name = "item_id")
     @ManyToOne
     private Checklist checklist;

@@ -31,7 +31,7 @@ public class Checklist {
     @JoinColumn(name="user_id")
     private User user;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<ChecklistItem> items;
 
     public Checklist(String name, User user) {
