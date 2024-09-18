@@ -1,6 +1,8 @@
 package com.example.btsbackendtest.checklist;
 
+import com.example.btsbackendtest.ChecklistItem.ChecklistItemRequestDto;
 import com.example.btsbackendtest.ChecklistItem.ChecklistItemService;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
@@ -37,5 +39,17 @@ public class ChecklistController {
     @GetMapping(path = "/{id}/item")
     public ResponseEntity<?> findAllItem(@PathVariable("id") String id) {
         return ResponseEntity.ok(checklistItemService.findChecklistItem(id));
+    }
+
+    @PostMapping(path="/{id}/item")
+    public ResponseEntity<?> createItem(
+            @PathVariable("id") String id,
+            @RequestBody @Valid ChecklistItemRequestDto body
+    ) {
+        var currentChecklist = checklistService.getChecklist(id);
+        if(currentChecklist.isEmpty()) {
+            return ResponseEntity.badRequest().body("Bad Request");
+        }
+        return ResponseEntity.ok(checklistItemService.createChecklistItem(body.getName(), currentChecklist.get()));
     }
 }

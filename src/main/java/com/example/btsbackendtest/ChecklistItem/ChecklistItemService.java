@@ -18,6 +18,7 @@ public class ChecklistItemService {
 
     public boolean createChecklistItem(String name, Checklist checklist) {
         var checklistItem = new ChecklistItem(name, checklist);
+        checklistItemRepository.save(checklistItem);
         return true;
     }
 }
